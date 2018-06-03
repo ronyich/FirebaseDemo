@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Firebase
+import FBSDKCoreKit
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,8 +18,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // Set up the style and color of the common UI elements
+        customizeUIStyle()
+        
+        // 會讀取GoogleService-Info.plist，一開啟就連接Firebase
+        FirebaseApp.configure()
+        
+        // 作為從Facebook登入傳遞處理結果(例如切換至原生FB App 或 傳遞FB對話框)
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        // 初始化 Google SignIn 的用戶端ID
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        
+        
         return true
+    }
+    // 當FB切回原本的app 這個open options方法會被調用，所以必須實作這個方法處理FB登入
+    // 要能正確的處理登入，他需要由FB呼叫FBSDKApplicationDelegate的application方法
+    // 這邊是處理從FB or Google url的驗證，若是正確則回傳true，再來跑到使用者帳號登入驗證
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        var handled = false
+        
+        if url.absoluteString.contains("fb") {
+            handled = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+        }else{
+            // 呼叫Google SignIn實例的handle方法處理app最後驗證程序所接收的url
+            handled = GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: [:])
+        }
+        return handled
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -44,3 +75,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+
+extension AppDelegate {
+    func customizeUIStyle() {
+        
+        // Customize Navigation bar items
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).setTitleTextAttributes([NSAttributedStringKey.font: UIFont(name: "Avenir", size: 16)!, NSAttributedStringKey.foregroundColor: UIColor.white], for: UIControlState.normal)
+    }
+}

@@ -588,7 +588,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="5s9sei-hfza-vincent-guth" translatesAutoresizingMaskIntoConstraints="NO" id="PzJ-gw-qsJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="417"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="380"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="380" id="rEL-YX-zBd"/>
+                                            </constraints>
                                         </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Yox-be-9xm">
                                             <rect key="frame" x="16" y="387" width="343" height="30"/>
@@ -664,7 +667,6 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="Yox-be-9xm" secondAttribute="trailing" id="Wfz-Lx-swA"/>
                                         <constraint firstItem="Yox-be-9xm" firstAttribute="leading" secondItem="EKn-Ie-hyM" secondAttribute="leadingMargin" id="crD-Tz-1g4"/>
                                         <constraint firstItem="PzJ-gw-qsJ" firstAttribute="leading" secondItem="EKn-Ie-hyM" secondAttribute="leading" id="fv6-56-W79"/>
-                                        <constraint firstItem="Yox-be-9xm" firstAttribute="bottom" secondItem="PzJ-gw-qsJ" secondAttribute="bottom" id="gIr-Z2-mmG"/>
                                         <constraint firstAttribute="trailing" secondItem="PzJ-gw-qsJ" secondAttribute="trailing" id="gT7-6e-jhc"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="Yox-be-9xm" secondAttribute="bottom" constant="4" id="kJs-gp-z83"/>
                                         <constraint firstItem="PzJ-gw-qsJ" firstAttribute="top" secondItem="EKn-Ie-hyM" secondAttribute="top" id="rnZ-nd-lys"/>
@@ -687,6 +689,9 @@
                     <navigationItem key="navigationItem" title="Northern Lights" id="Im1-fS-1Ts">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="Camera" id="s7b-gd-6fr">
                             <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="openCamera:" destination="LqV-vF-olZ" id="bag-e7-Z1y"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="head" id="wYv-yJ-1F0">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

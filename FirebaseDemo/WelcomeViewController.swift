@@ -13,16 +13,9 @@ import GoogleSignIn
 
 class WelcomeViewController: UIViewController {
     
-    let message = "Hello Git!"
-    let message2 = "Hello 2"
-    let message3 = "Hello 3"
-    let m4 = "All files in the working copy will switch from the current branch (“master”) to “v1.0”."
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(message)
-
         self.title = ""
         
         GIDSignIn.sharedInstance().delegate = self
